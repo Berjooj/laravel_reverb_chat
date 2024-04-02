@@ -1,3 +1,51 @@
+# Chat with Laravel Reverb
+
+Follow these commands:
+
+1. **Copy the `.env.example` file to `.env`**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+2. **Generate a key for your project**
+
+    ```bash
+    php artisan key:generate
+    ```
+
+3. **Install all PHP dependencies**
+
+    ```bash
+    composer install
+    ```
+
+4. **Install all JavaScript dependencies**
+
+    ```bash
+    npm install
+    ```
+
+5. **Run migrations (using SQLite by default)**
+
+    ```bash
+    php artisan migrate
+    ```
+
+6. **Running on development**
+    ```bash
+    php artisan serve
+    ```
+    ```bash
+    npm run dev
+    ```
+    ```bash
+    php artisan reverb:start
+    ```
+    ```bash
+    php artisan queue:work
+    ```
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

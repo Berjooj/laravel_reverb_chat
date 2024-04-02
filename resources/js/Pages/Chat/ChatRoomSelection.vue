@@ -1,21 +1,18 @@
 <template>
-	<div class="grid grid-cols-2">
-		<div class="font-bold text-xl">
-			{{ selected.name }} - Chat
-		</div>
-		<div>
-			<select v-model=" selected " @change="$emit('roomchanged', selected)" class="float-right">
-				<option v-for="( room, index ) in rooms " key="index" :value="room">
-					{{ room.name }}
-				</option>
-			</select>
-		</div>
+	<user-info class="mt-0" />
+	<div class="flex flex-col mt-8">
+		<user-chat-room v-for="( room, index ) in rooms " key="index" :currentRoom=" currentRoom " :room=" room "
+			:index=" index " v-on:roomchanged="$emit('roomchanged', $event)" />
 	</div>
 </template>
 
 <script>
+import UserInfo from './UserInfo.vue';
+import UserChatRoom from './UserChatRoom.vue';
+
 export default {
 	props: ['rooms', 'currentRoom'],
+	components: { UserInfo, UserChatRoom },
 	data()
 	{
 		return {

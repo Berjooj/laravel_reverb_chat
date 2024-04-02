@@ -16,7 +16,7 @@ class ChatMessage extends Model
 	];
 
 	public function room() {
-		return $this->belongsTo(ChatRoom::class);
+		return $this->belongsTo(ChatRoom::class, 'chat_rooms_id', 'id');
 	}
 
 	public function user() {

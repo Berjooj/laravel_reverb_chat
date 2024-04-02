@@ -9,20 +9,14 @@ import axios from 'axios';
 <template>
     <AppLayout title="Chat">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                <chat-room-selection v-if=" currentRoom.id " :rooms=" chatRooms " :currentRoom=" currentRoom "
-                    v-on:roomchanged="setRoom($event)" />
-            </h2>
+            <chat-room-selection :rooms=" chatRooms " :currentRoom=" currentRoom " v-on:roomchanged="setRoom($event)" />
         </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <message-container :messages=" messages " />
-                    <input-message :room=" currentRoom " v-on:messagesent="getMessages()"></input-message>
-                </div>
+        <template #content>
+            <div class="flex flex-col h-full h-screen">
+                <message-container :currentRoom=" currentRoom " :messages=" messages " />
+                <input-message :room=" currentRoom " v-on:messagesent="getMessages()"></input-message>
             </div>
-        </div>
+        </template>
     </AppLayout>
 </template>
 
@@ -48,7 +42,6 @@ export default {
             axios.get('/chat/rooms').then(response =>
             {
                 this.chatRooms = response.data;
-                this.setRoom(response.data[0]);
             }).catch(error =>
             {
                 console.log(error)
@@ -59,8 +52,9 @@ export default {
             this.currentRoom = room;
             this.getMessages();
 
-            Echo.channel('room.' + this.currentRoom.id)
-                .listen('MessageReceivedEvent', (e) => {
+            Echo.channel('room.' + room.id)
+                .listen('MessageReceivedEvent', (e) =>
+                {
                     this.getMessages();
                 })
         },
@@ -73,13 +67,26 @@ export default {
                 this.messages = response.data;
             }).then(error =>
             {
-                console.log(error);
+                console.log('error', error);
             })
-        }
+        },
+    },
+    mounted()
+    {
+        let recaptchaScript = document.createElement('script')
+        recaptchaScript.setAttribute('src', 'https://kit.fontawesome.com/4408c6a7a3.js')
+        document.head.appendChild(recaptchaScript)
     },
     created()
     {
         this.getRooms();
+
+        Echo.channel('new_user')
+                .listen('UserCreatedEvent', (e) =>
+                {
+                    console.log('novo evento')
+                    this.getRooms();
+                })
     },
 }
 </script>

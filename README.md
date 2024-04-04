@@ -1,6 +1,14 @@
 # Chat with Laravel Reverb
 
-Follow these commands:
+With docker:
+
+1. **Run the following command**
+
+    ```bash
+    docker compose up -d --build
+    ```
+
+Without docker follow these commands:
 
 1. **Copy the `.env.example` file to `.env`**
 

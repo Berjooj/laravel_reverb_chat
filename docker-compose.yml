@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  laravel-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: laravel-app
+    command: sh -c "cp .env.example .env && composer install && npm install && php artisan key:generate --ansi && php artisan migrate && supervisord -c /etc/supervisord.conf"
+    ports:
+      - "9000:9000"
+      - "8080:8080"
+      - "5173:5173"
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/apps/storage
+    logging:
+      options:
+        max-size: 100k
+        max-file: "1"
+

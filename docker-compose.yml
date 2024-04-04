@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     container_name: laravel-app
-    command: sh -c "cp .env.example .env && composer install && npm install && php artisan key:generate --ansi && php artisan migrate && supervisord -c /etc/supervisord.conf"
+    command: sh -c "cp .env.example .env && composer install && npm install && php artisan key:generate --ansi && php artisan migrate && npm run build && supervisord -c /etc/supervisord.conf"
     ports:
       - "9000:9000"
       - "8080:8080"

@@ -5,8 +5,9 @@ With docker:
 1. **Run the following command**
 
     ```bash
-    docker compose up -d --build
+    docker compose up --build
     ```
+2. **Access localhost:9000 after supervisor starts**
 
 Without docker follow these commands:
 

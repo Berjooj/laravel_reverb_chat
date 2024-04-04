@@ -5,9 +5,10 @@ With docker:
 1. **Run the following command**
 
     ```bash
-    docker compose up --build
+    docker compose up --build --force-recreate
     ```
-2. **Access localhost:9000 after supervisor starts**
+   
+3. **wait for the container to initialize and then access http://localhost:9000**
 
 Without docker follow these commands:
 
